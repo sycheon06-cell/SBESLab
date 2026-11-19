@@ -8,7 +8,8 @@ Rules (as requested):
 - 2 buckets only: Journal vs Proceedings
 - All non-journal outputs are treated as Proceedings
 - Sort: year DESC, and within the same year latest-first
-- Include a DOI when the File link column contains a doi.org URL
+- Read the public DOI and Paper URL columns for publication actions
+- Still accept an older doi.org URL in the File link column
 - Add (IF, Top%) in parentheses when available (typically journals)
 
 Note: Some rows may have missing dates ('-'). In that case, the script infers
@@ -23,6 +24,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional, Tuple
+from urllib.parse import urlsplit
 
 import openpyxl
 
@@ -30,7 +32,9 @@ import openpyxl
 # This still matches patterns like "IAQVEC2024" (letter before year), "(2024)", " 2017 ", etc.
 RE_YEAR = re.compile(r"(?<!\d)(19|20)\d{2}")
 RE_DATE_DOT = re.compile(r"^(?P<y>(19|20)\d{2})\.(?P<m>\d{2})(?:\.(?P<d>\d{2}))?$")
-RE_DOI_URL = re.compile(r"https://doi\.org/(10\.\d{4,9}/\S+)", re.IGNORECASE)
+DOI_PATTERN = r"10\.\d{4,9}/\S+"
+RE_DOI = re.compile(DOI_PATTERN)
+RE_DOI_URL = re.compile(rf"https://doi\.org/({DOI_PATTERN})", re.IGNORECASE)
 
 
 @dataclass
@@ -43,6 +47,7 @@ class PubRow:
     authors: str
     venue_text: str
     doi: Optional[str]
+    paper_url: Optional[str]
 
 
 def _as_str(x: Any) -> str:
@@ -54,6 +59,19 @@ def _as_str(x: Any) -> str:
 def _is_missing(x: Any) -> bool:
     s = _as_str(x)
     return s == "" or s == "-" or s.lower() == "nan"
+
+
+def _public_paper_url(value: Any) -> Optional[str]:
+    url = _as_str(value)
+    if not url or any(c.isspace() for c in url):
+        return None
+    try:
+        parsed = urlsplit(url)
+    except ValueError:
+        return None
+    if parsed.scheme == "https" and parsed.hostname and parsed.username is None:
+        return url
+    return None
 
 
 def _parse_year_from_any(*fields: Any) -> Optional[int]:
@@ -156,6 +174,8 @@ def load_excel_rows(xlsx_path: Path) -> Tuple[list[PubRow], list[PubRow]]:
     # 10 IF
     # 11 Top %
     # 12 File link (only public DOI links are exported)
+    # 13 DOI
+    # 14 Paper URL (public publisher or repository page)
 
     for sheet_pos, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
         title = _as_str(row[1]) if len(row) > 1 else ""
@@ -176,7 +196,11 @@ def load_excel_rows(xlsx_path: Path) -> Tuple[list[PubRow], list[PubRow]]:
 
         if_val = row[9] if len(row) > 9 else None
         top_val = row[10] if len(row) > 10 else None
-        doi_match = RE_DOI_URL.fullmatch(_as_str(row[11])) if len(row) > 11 else None
+        doi = _as_str(row[12]) if len(row) > 12 else ""
+        if not RE_DOI.fullmatch(doi):
+            legacy_doi = RE_DOI_URL.fullmatch(_as_str(row[11])) if len(row) > 11 else None
+            doi = legacy_doi.group(1) if legacy_doi else None
+        paper_url = _public_paper_url(row[13]) if len(row) > 13 else None
 
         # Year inference
         year = _parse_year_from_any(date_val, venue_main, venue_detail, title)
@@ -215,7 +239,8 @@ def load_excel_rows(xlsx_path: Path) -> Tuple[list[PubRow], list[PubRow]]:
             title=title,
             authors=authors,
             venue_text=venue_text,
-            doi=doi_match.group(1) if doi_match else None,
+            doi=doi,
+            paper_url=paper_url,
         )
 
         if kind == "journal":
@@ -249,6 +274,8 @@ def sort_and_assign_within_year(items: list[PubRow]) -> list[dict[str, Any]]:
         }
         if it.doi:
             record["doi"] = it.doi
+        if it.paper_url:
+            record["url"] = it.paper_url
         output.append(record)
         within += 1
 

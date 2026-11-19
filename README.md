@@ -15,6 +15,8 @@ To update the Publications content using the Excel table:
    ```
 3. Commit and push the updated `data/publications.json`
 
+Use the `DOI` column for a verified identifier and the `Paper URL` column for a public publisher or repository link. When a paper only has a DOI, the `Paper` and `DOI` buttons both use its resolver link. A record with a public paper URL and no DOI shows `Paper` and `Scholar`.
+
 Note: the site branding now uses SBES Lab, short for Sustainable Building Energy System Lab.
 
 Display rules:

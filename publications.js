@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'M Choi, MG Park, SJ Lee, SY Cheon, JW Jeong',
         venue: 'Journal of Building Engineering 134, 117804 (IF 7.4, Top 5.46%)',
         within_year_order: 0,
-        doi: '10.1016/j.jobe.2026.117804',
+        doi: "10.1016/j.jobe.2026.117804",
+        url: "https://www.sciencedirect.com/science/article/pii/S2352710226026264",
       },
       {
         year: 2026,
@@ -39,7 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'MG Park, BJ Kim, S Kim, SY Cheon, JW Jeong',
         venue: 'Journal of Building Engineering 132, 117372 (IF 7.4, Top 5.46%)',
         within_year_order: 1,
-        doi: '10.1016/j.jobe.2026.117372',
+        doi: "10.1016/j.jobe.2026.117372",
+        url: "https://www.sciencedirect.com/science/article/pii/S2352710226021947",
       },
       {
         year: 2026,
@@ -47,7 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'SY Cheon, HJ Cho, JH Lee, JW Jeong',
         venue: 'Applied Thermal Engineering 303, 132210 (IF 6.9, Top 4.95%)',
         within_year_order: 2,
-        doi: '10.1016/j.applthermaleng.2026.132210',
+        doi: "10.1016/j.applthermaleng.2026.132210",
+        url: "https://www.sciencedirect.com/science/article/pii/S1359431126025184",
       },
       {
         year: 2026,
@@ -55,6 +58,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'SY Cheon, HJ Cho, MA Rahman, A Fix, DM Warsinger',
         venue: 'Energy Conversion and Management 358, 121471 (IF 10.9, Top 2.34%)',
         within_year_order: 3,
+        doi: "10.1016/j.enconman.2026.121471",
+        url: "https://www.sciencedirect.com/science/article/pii/S0196890426004401",
       },
       {
         year: 2026,
@@ -62,6 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'SY Cheon, HJ Cho, JW Jeong',
         venue: 'Journal of Building Engineering 125, 116139 (IF 7.4, Top 5.46%)',
         within_year_order: 4,
+        doi: "10.1016/j.jobe.2026.116139",
+        url: "https://www.sciencedirect.com/science/article/pii/S2352710226009605",
       },
       {
         year: 2026,
@@ -69,6 +76,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'HJ Cho, SY Cheon, H Lim',
         venue: 'Applied Thermal Engineering 289, 129785 (IF 6.9, Top 4.95%)',
         within_year_order: 5,
+        doi: "10.1016/j.applthermaleng.2026.129785",
+        url: "https://www.sciencedirect.com/science/article/pii/S1359431126000931",
       },
       {
         year: 2026,
@@ -76,6 +85,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'MA Rahman, AJ Fix, J Oh, SY Cheon, HJ Cho, DM Warsinger',
         venue: 'Energy and Buildings 353, 116904',
         within_year_order: 6,
+        doi: "10.1016/j.enbuild.2025.116904",
+        url: "https://www.sciencedirect.com/science/article/pii/S0378778825016342",
       },
       {
         year: 2026,
@@ -83,6 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'HJ Cho, SY Cheon, K Jang, B Kim, JW Jeong',
         venue: 'Energy Conversion and Management 348, 120715 (IF 10.9, Top 2.34%)',
         within_year_order: 7,
+        doi: "10.1016/j.enconman.2025.120715",
+        url: "https://www.sciencedirect.com/science/article/pii/S0196890425012397",
       },
     ],
     proceedings: [
@@ -92,7 +105,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'MA Rahman, MA Thompson, J Ren, SY Cheon, HJ Cho, D Ziviani, DM Warsinger',
         venue: 'ASHRAE Transactions 132 (Pt 1), 302-312',
         within_year_order: 0,
-        doi: '10.63044/w26rah37',
+        doi: "10.63044/w26rah37",
+        url: "https://store.accuristech.com/standards/c037-dynamic-dehumidification-performance-and-modeling-of-a-heat-pump-assisted-membrane-based-high-temperature-industrial-dryer?product_id=3066291",
       },
       {
         year: 2025,
@@ -100,6 +114,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'K Tsuji, G Yoon, HJ Cho, SY Cheon, JW Jeong',
         venue: 'REHVA HVAC World Congress 792-800',
         within_year_order: 0,
+        doi: "10.1007/978-3-032-06806-4_76",
+        url: "https://link.springer.com/chapter/10.1007/978-3-032-06806-4_76",
       },
       {
         year: 2025,
@@ -107,6 +123,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         authors: 'HJ Cho, SY Cheon, JW Jeong',
         venue: 'ASHRAE Transactions 131 (Pt 2), 411-418',
         within_year_order: 1,
+        doi: "10.63044/s25exp47",
+        url: "https://store.accuristech.com/standards/px-25-c047-experimental-investigation-of-vacuum-based-membrane-dehumidification-and-evaporative-cooling-assisted-dedicated-outdoor-air-system?product_id=3024286",
       },
     ],
   };
